@@ -3,6 +3,7 @@ package com.uzikami.api.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -10,6 +11,7 @@ import lombok.ToString;
 @Table (name="basket_item")
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
 public class BasketItem {
     @Id
@@ -22,4 +24,14 @@ public class BasketItem {
     @JsonIgnore
     private Product product;
 
+    @ManyToOne
+    @JoinColumn(name = "basket_id")
+    @JsonIgnore
+    private Basket basket;
+
+    public BasketItem(Product product,int quantity, Basket basket) {
+        this.product = product;
+        this.quantity = quantity;
+        this.basket = basket;
+    }
 }
